@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../actions";
-import "./dashboard.css";
-
+import "./dashboard.scss";
 import moment from "moment";
 import arrow from "./arrow.svg";
-import SwiperUnfixed from "../swiper/swiper";
+import logout from "./logout.svg";
 
+import SwiperUnfixed from "../swiper/swiper";
+import SearchResults from "../search-data/search-results";
 //api
 import { getURL, getData } from "../API.data";
-
 //hardcoded data for API
 const country = "RU";
 const currency = "RUB";
@@ -21,6 +21,7 @@ export default function Dashboard() {
   const dispatch = useDispatch();
   const today = moment().format("YYYY-MM-DD");
   const dateRef = useRef("");
+  const { favorits } = useSelector((store) => store);
   const [searchDate, setSearchDate] = useState(today);
   const [flightsData, setFlightsData] = useState({});
   const [liked, setLiked] = useState(0);
@@ -33,7 +34,7 @@ export default function Dashboard() {
       destination,
       searchDate
     );
-    const data = getData(url);
+    //const data = getData(url);
   }, [searchDate]);
 
   const store = useSelector((store) => store);
@@ -48,31 +49,49 @@ export default function Dashboard() {
   const displayDest = destination.slice(0, 3);
   return (
     <div className="page">
-      <button onClick={exit}>Выйти</button>
+      <button className="btn-logout" onClick={exit}>
+
+          <div>Выйти</div>
+            <img
+              className="logout-icon"
+              src={logout}
+              alt="log-out button"
+            ></img>
+
+      </button>
       <div className="card">
-        <div className="info">
-          <div className="info__location">
-            Вылеты{" "}
-            {
-              <span>
-                <img src={arrow} alt="arrow icon" />
-              </span>
-            }{" "}
-            {`${displayDep} - ${displayDest}`}
+        <div className="top">
+          <div className="info">
+            <div className="info__location">
+              Вылеты{" "}
+              {
+                <span>
+                  <img src={arrow} alt="arrow icon" />
+                </span>
+              }{" "}
+              {`${displayDep} - ${displayDest}`}
+            </div>
+            <input
+              className="info__calendar"
+              ref={dateRef}
+              type="date"
+              id="calendar"
+              min={today}
+              value={searchDate}
+              onChange={trackDate}
+            />
           </div>
-          <input
-            className="info__calendar"
-            ref={dateRef}
-            type="date"
-            id="calendar"
-            min={today}
-            value={searchDate}
-            onChange={trackDate}
-          />
+          <SwiperUnfixed className="swiper" />
         </div>
-        <SwiperUnfixed className="swiper" />
-        <div className="favorited">`Добавлено в Избранное ${1} рейсов`</div>
-        <div>res</div>
+        <div className="favs">
+          Добавлено в Избранное <span className="favs__qty">{favorits}</span>{" "}
+          рейсов
+        </div>
+        <div className="bottom">
+          <ul className="results__list">
+            <SearchResults />
+          </ul>
+        </div>
       </div>
     </div>
   );

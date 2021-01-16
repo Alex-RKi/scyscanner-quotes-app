@@ -21,3 +21,19 @@ export const logOut = () => {
     type: "LOG_OUT",
   };
 };
+
+export const incFav = () => {
+  return {
+    type: "INC_FAV",
+  };
+};
+export const decFav = () => {
+  return {
+    type: "DEC_FAV",
+  };
+};
+export const resetFavs = () => {
+  return {
+    type: "RESET_FAV",
+  };
+};

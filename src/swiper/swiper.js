@@ -1,6 +1,6 @@
 import React from "react";
 import Swiper from "react-id-swiper";
-import 'swiper/swiper.scss';
+import "swiper/swiper.scss";
 
 import pic from "./1.png";
 import pic2 from "./2.png";
@@ -9,7 +9,7 @@ import pic4 from "./4.png";
 
 const SwiperUnfixed = () => {
   const params = {
-    slidesPerView:3,
+    slidesPerView: 3,
     spaceBetween: 30,
     freeMode: true,
     pagination: {
@@ -27,6 +27,12 @@ const SwiperUnfixed = () => {
       </div>
       <div>
         <img src={pic3} alt="Destination pic" />
+      </div>
+      <div>
+        <img src={pic4} alt="Destination pic" />
+      </div>
+      <div>
+        <img src={pic4} alt="Destination pic" />
       </div>
       <div>
         <img src={pic4} alt="Destination pic" />

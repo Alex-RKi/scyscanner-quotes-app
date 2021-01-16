@@ -17,7 +17,7 @@ export async function getData(URL) {
     },
   })
     .then((response) => {
-      return JSON.parse(response);
+      return response; 
     })
     .catch((err) => {
       console.error(err);
