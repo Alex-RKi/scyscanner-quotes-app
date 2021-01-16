@@ -17,7 +17,6 @@ export default function SignIn() {
   const signUp = (e) => {
     console.log(store);
     e.preventDefault();
-    let errText = "";
     const email = emailRef.current.value;
     const password = passRef.current.value;
 
@@ -61,19 +60,25 @@ export default function SignIn() {
       </div>
 
       <div className="login-card">
-        <h1>Simple Flight Check</h1>
+        <h1 className='header' >Simple Flight Check</h1>
         <form className="login-form" onSubmit={(e) => signUp(e)}>
-          <label htmlFor="email">Логин:</label>
+          <label className="card-label" htmlFor="email">
+            Логин:
+          </label>
           <input
             type="text"
+            className="card-input"
             id="email"
             ref={emailRef}
             pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
             required
           />
-          <label htmlFor="password">Пароль:</label>
+          <label className="card-label" htmlFor="password">
+            Пароль:
+          </label>
           <input
             id="password"
+            className="card-input"
             ref={passRef}
             onChange={(e) => checkPass(e)}
             type="password"
@@ -81,7 +86,9 @@ export default function SignIn() {
             required
           />
           <span className="error-msg">{`${passErr} ${emailErr}`}</span>
-          <button type="submit">Войти</button>
+          <button className="btn-submit" type="submit">
+            Войти
+          </button>
         </form>
       </div>
     </div>

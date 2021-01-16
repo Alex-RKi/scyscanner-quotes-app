@@ -30,14 +30,12 @@
 }
 
 .login-card {
-  
   background: #ffffff;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
   border-radius: 20px;
   position: absolute;
   top: 30%;
   left: 35%;
-  /* transform: translate(-50%, -50%); */
   z-index: 3;
   width: 30%;
   height: auto;
@@ -45,7 +43,7 @@
   flex-direction: column;
   align-items: center;
 }
-h1 {
+.header {
   margin-top: 53px;
   font-weight: 500;
   font-size: 24px;
@@ -63,10 +61,10 @@ h1 {
   font-size: 16px;
   line-height: 19px;
 }
-label {
+.card-label {
   margin-top: 10px;
 }
-input {
+.card-input {
   display: block;
   width: 100%;
   height: 30px;
@@ -74,7 +72,7 @@ input {
   box-sizing: border-box;
   border-radius: 4px;
 }
-button {
+.btn-submit {
   /* position: absolute; */
   margin-bottom: 37px;
   align-self: end;
@@ -90,13 +88,13 @@ button {
   font-style: normal;
   background-origin: border-box;
 }
-button:hover {
+.btn-submit:hover {
   cursor: pointer;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
-
 }
-button:active {
+.btn-submit:active {
   cursor: pointer;
+  box-shadow: 0px 0px 5px rgba(56, 129, 197, 0.4);
 }
 .error-msg {
   color: red;
@@ -110,7 +108,7 @@ button:active {
     margin: 0px;
     border-radius: 0px;
   }
-  button {
+  .btn-submit {
     width: 100%;
   }
 }
