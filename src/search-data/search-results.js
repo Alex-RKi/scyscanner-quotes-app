@@ -11,11 +11,13 @@ import moment from "moment";
 
 export default function SearchResults() {
   const { flights } = useSelector((store) => store);
-  const [list, setList] = useState([]);
-
+  const [list, setList] = useState(<div>Загрузка...</div>);
+  const { Quotes, Carriers, Places, Currencies } = flights;
   useEffect(() => {
-    if (flights) {
+    if (Quotes.length) {
       setList(createList(flights));
+    } else {
+      setList(<div> Нет перелетов на эту дату</div>);
     }
   }, [flights]);
 
@@ -24,8 +26,6 @@ export default function SearchResults() {
   }
 
   function createList(flights) {
-    const { Quotes, Carriers, Places, Currencies } = flights;
-
     const params = {
       from: Places[1].CityName || "loading",
       to: Places[0].CityName || "loading",
