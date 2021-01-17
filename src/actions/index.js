@@ -37,3 +37,18 @@ export const resetFavs = () => {
     type: "RESET_FAV",
   };
 };
+
+export const saveData = (data) => {
+  return {
+    type: "DATA_LODADED",
+    payload: data,
+  };
+};
+
+//no_reducer
+export const loadData = (url) => {
+  return {
+    type: "DATA_LOADING",
+    payload: url,
+  };
+};

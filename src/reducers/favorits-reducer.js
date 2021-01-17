@@ -1,4 +1,4 @@
-const favoritsRedicer = (state = 0, action) => {
+const favoritsReducer = (state = 0, action) => {
   switch (action.type) {
     case "INC_FAV":
       return state + 1;
@@ -11,4 +11,4 @@ const favoritsRedicer = (state = 0, action) => {
   }
 };
 
-export default favoritsRedicer;
+export default favoritsReducer;

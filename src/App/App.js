@@ -7,7 +7,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Dashboard from "../dashboard/dashboard";
+import FlightsBrowser from "../flights-browser/flights-browser";
 
 function App() {
   return (
@@ -25,7 +25,11 @@ const Switcher = () => {
   return (
     <Switch>
       <ReSignIn path="/" exact auth={isLoggedIn} component={SignIn} />
-      <ReDashboard path="/dashboard" auth={isLoggedIn} component={Dashboard} />
+      <ReFlights
+        path="/flights"
+        auth={isLoggedIn}
+        component={FlightsBrowser}
+      />
     </Switch>
   );
 };
@@ -33,11 +37,11 @@ const ReSignIn = ({ auth, component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={() => (!auth ? <Component /> : <Redirect to="/dashboard" />)}
+      render={() => (!auth ? <Component /> : <Redirect to="/flights" />)}
     />
   );
 };
-const ReDashboard = ({ auth, component: Component, ...rest }) => {
+const ReFlights = ({ auth, component: Component, ...rest }) => {
   return (
     <Route
       {...rest}

@@ -23,7 +23,6 @@ export default function SignIn() {
     const inDB = usersList.findIndex((user) => {
       return user.email === email;
     });
-    console.log(inDB);
     if (inDB >= 0 && usersList[inDB].pass === password) {
       dispatch(logIn());
       return;

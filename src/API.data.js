@@ -1,10 +1,14 @@
-export function getURL(country, currency, lang, departure, destination, day) {
-  return `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0
+export function getURL(from, to, day) {
+  const country = "RU";
+  const currency = "RUB";
+  const lang = "en-US"; // API locale
+
+  return `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsedates/v1.0
 /${country}
 /${currency}
 /${lang}
-/${departure}
-/${destination}
+/${from}
+/${to}
 /${day}`;
 }
 export async function getData(URL) {
@@ -17,7 +21,7 @@ export async function getData(URL) {
     },
   })
     .then((response) => {
-      return response; 
+      return response;
     })
     .catch((err) => {
       console.error(err);

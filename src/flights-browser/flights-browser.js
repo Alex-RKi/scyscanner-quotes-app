@@ -1,43 +1,41 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { logOut } from "../actions";
-import "./dashboard.scss";
+import { loadData, logOut } from "../actions";
 import moment from "moment";
+
+import "./flights-browser.scss";
 import arrow from "./arrow.svg";
 import logout from "./logout.svg";
 
 import SwiperUnfixed from "../swiper/swiper";
 import SearchResults from "../search-data/search-results";
 //api
-import { getURL, getData } from "../API.data";
-//hardcoded data for API
-const country = "RU";
-const currency = "RUB";
-const lang = "ru-RU"; // API locale
-const departure = "SVO-sky"; // originplace
-const destination = "JFK-sky"; //destinationplace
+import { getURL } from "../API.data";
 
-export default function Dashboard() {
+//hardcoded data for API
+const from = "SVO-sky"; // originplace
+const to = "JFK-sky"; //destinationplace
+//const date = '2021-01-17' //get from input
+
+export default function FlightsBrowser() {
   const dispatch = useDispatch();
-  const today = moment().format("YYYY-MM-DD");
+
+  let today = moment().format("YYYY-MM-DD");
+  const currentTime = new Date();
+  if (currentTime.getHours() > 21) {
+    const newTimestamp = currentTime.setDate(currentTime.getDate() + 1);
+    today = moment(newTimestamp).format("YYYY-MM-DD");
+  }
   const dateRef = useRef("");
   const { favorits } = useSelector((store) => store);
+
   const [searchDate, setSearchDate] = useState(today);
-  const [flightsData, setFlightsData] = useState({});
-  const [liked, setLiked] = useState(0);
+
   useEffect(() => {
-    const url = getURL(
-      country,
-      currency,
-      lang,
-      departure,
-      destination,
-      searchDate
-    );
-    //const data = getData(url);
+    const url = getURL(from, to, searchDate);
+    dispatch(loadData(url)); //saga action
   }, [searchDate]);
 
-  const store = useSelector((store) => store);
   const exit = () => {
     dispatch(logOut());
   };
@@ -45,19 +43,14 @@ export default function Dashboard() {
     const newDate = dateRef.current.value;
     setSearchDate(newDate);
   };
-  const displayDep = departure.slice(0, 3);
-  const displayDest = destination.slice(0, 3);
+  const displayFrom = from.slice(0, 3);
+  const displayTo = to.slice(0, 3);
+
   return (
     <div className="page">
       <button className="btn-logout" onClick={exit}>
-
-          <div>Выйти</div>
-            <img
-              className="logout-icon"
-              src={logout}
-              alt="log-out button"
-            ></img>
-
+        <div>Выйти</div>
+        <img className="logout-icon" src={logout} alt="log-out button"></img>
       </button>
       <div className="card">
         <div className="top">
@@ -69,7 +62,7 @@ export default function Dashboard() {
                   <img src={arrow} alt="arrow icon" />
                 </span>
               }{" "}
-              {`${displayDep} - ${displayDest}`}
+              {`${displayFrom} - ${displayTo}`}
             </div>
             <input
               className="info__calendar"
