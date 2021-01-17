@@ -15,7 +15,6 @@ export default function SignIn() {
   const [emailErr, setEmailErr] = useState("");
 
   const signUp = (e) => {
-    console.log(store);
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passRef.current.value;

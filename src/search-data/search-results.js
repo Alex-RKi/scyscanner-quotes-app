@@ -14,8 +14,9 @@ export default function SearchResults() {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    console.log(flights);
-    setList(createList(flights));
+    if (flights) {
+      setList(createList(flights));
+    }
   }, [flights]);
 
   if (!flights) {
@@ -23,7 +24,7 @@ export default function SearchResults() {
   }
 
   function createList(flights) {
-    const { Quotes, Carriers, Places, Currencies, Dates } = flights;
+    const { Quotes, Carriers, Places, Currencies } = flights;
 
     const params = {
       from: Places[1].CityName || "loading",
@@ -49,9 +50,6 @@ export default function SearchResults() {
       });
       rowParams.carrierName = carrierData.Name;
       //---
-      console.log("--test---");
-      console.log(rowParams);
-      console.log("--test---");
       return <Row {...rowParams} key={quote.QuoteId} />;
     });
     return list;
@@ -74,7 +72,7 @@ const Row = ({
 
   const [liked, setLiked] = useState(false);
   const { favorits } = useSelector((store) => store);
-const formatedPrice = Intl.NumberFormat('ru-RU').format(price);
+  const formatedPrice = Intl.NumberFormat("ru-RU").format(price);
 
   useEffect(() => {
     dispatch(resetFavs());
@@ -122,7 +120,8 @@ const formatedPrice = Intl.NumberFormat('ru-RU').format(price);
               />
             </button>
             <div className="price__amount">
-              <span className='w'>Price: </span>{`${formatedPrice} ${currencySymbol}`}
+              <span className="w">Price: </span>
+              {`${formatedPrice} ${currencySymbol}`}
             </div>
           </div>
         </div>
