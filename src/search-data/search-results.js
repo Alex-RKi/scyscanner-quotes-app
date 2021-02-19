@@ -14,11 +14,12 @@ export default function SearchResults() {
   const [list, setList] = useState(<div>Загрузка...</div>);
   const { Quotes, Carriers, Places, Currencies } = flights;
   useEffect(() => {
-    if (Quotes.length) {
+    if (Quotes[0]) {
       setList(createList(flights));
     } else {
       setList(<div> Нет перелетов на эту дату</div>);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flights]);
 
   if (!flights) {
